@@ -15,7 +15,6 @@ function Admin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [teachers, setTeachers] = useState([]);
-  const [students, setStudents] = useState([]);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -79,10 +78,6 @@ function Admin() {
     fetchTeachers(); // Refresh teacher list
   };
 
-  const handleApproveStudent = async (id) => {
-    await updateDoc(doc(db, "students", id), { approved: true });
-    fetchStudentRequests(); // Refresh student requests
-  };
 
   return (
     <div>
@@ -200,22 +195,6 @@ function Admin() {
                     Delete
                   </button>
                 </div>
-              </li>
-            ))}
-          </ul>
-
-          {/* Approve Students Section */}
-          <h3 className="text-xl font-semibold mt-8 mb-4">Approve Student Registrations</h3>
-          <ul>
-            {students.map((student) => (
-              <li key={student.id} className="mb-2 p-2 border rounded-lg bg-gray-100 flex justify-between items-center">
-                <span>{student.name} - {student.email}</span>
-                <button
-                  className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded"
-                  onClick={() => handleApproveStudent(student.id)}
-                >
-                  Approve
-                </button>
               </li>
             ))}
           </ul>
